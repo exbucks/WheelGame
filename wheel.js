@@ -362,8 +362,12 @@ Wheel.prototype = {
           deltaAngle = 0;
           deltaRadius = 0.85;
         } else {
-          fontSize = basis - 10 * index;
           deltaRadius = 0.76;
+          if (labels.length > 3) {
+            fontSize = basis - 11 * index;
+          } else {
+            fontSize = basis - 10 * index;
+          }
         }
         tX = (deltaRadius - 0.15 * index * (basis + 10 - 4 * index) / basis) * this.pRadius * Math.cos(i * this.deltaPI + deltaAngle * this.deltaPI / 4);
         tY = (deltaRadius - 0.15 * index * (basis + 10 - 4 * index) / basis) * this.pRadius * Math.sin(i * this.deltaPI + deltaAngle * this.deltaPI / 4);

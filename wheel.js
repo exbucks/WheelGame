@@ -144,10 +144,10 @@ function checkStartDrag(e) {
 
     // add motion when click, not drag
     if (mouseConstraint.pivotB[0] < 1) {
-      mouseConstraint.pivotB[0] = 10 * Math.random();
+      mouseConstraint.pivotB[0] = 4.0;
     }
     if (mouseConstraint.pivotB[1] < 1) {
-      mouseConstraint.pivotB[1] = 10 * Math.random();
+      mouseConstraint.pivotB[1] = 4.0;
     }
 
     world.addConstraint(mouseConstraint);
@@ -369,8 +369,12 @@ Wheel.prototype = {
         tY = (deltaRadius - 0.15 * index * (basis + 10 - 4 * index) / basis) * this.pRadius * Math.sin(i * this.deltaPI + deltaAngle * this.deltaPI / 4);
         ctx.translate(tX, tY);
         ctx.rotate(HALF_PI - this.deltaPI / 2 + 0.2 + i * this.deltaPI);
-        ctx.fillStyle = "#FFFFFF";
         ctx.font = fontSize + "px Helvetica";
+        ctx.shadowColor = "rgba(0,0,0,0.5)";
+        ctx.shadowBlur = 4;
+        ctx.shadowOffsetX = 3;
+        ctx.shadowOffsetY = 3;
+        ctx.fillStyle = "#FFFFFF";
         ctx.fillText(labels[index], 0, 0);
         ctx.restore();
       }

@@ -238,7 +238,7 @@ function loop() {
 }
 
 /////////////////////////////
-// wheel of fortune
+// wheel
 /////////////////////////////
 function Wheel(x, y, radius, segments, pinRadius, pinDistance) {
   this.x = x;
@@ -461,7 +461,7 @@ Rim.prototype = {
   }
 };
 /////////////////////////////
-// arrow on top of the wheel of fortune
+// arrow on top of the wheel
 /////////////////////////////
 function Arrow(x, y, w, h) {
   this.x = x;

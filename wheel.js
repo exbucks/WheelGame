@@ -137,18 +137,14 @@ function updateMouseBodyPosition(e) {
 function checkStartDrag(e) {
   if (world.hitTest(mouseBody.position, [wheel.body])[0]) {
 
+    // Move when clicked
+    if (Math.abs(wheel.body.angularVelocity) < 1) {
+      wheel.body.angularVelocity = -9.697757028277737;
+    }
     mouseConstraint = new p2.RevoluteConstraint(mouseBody, wheel.body, {
       worldPivot: mouseBody.position,
       collideConnected: false
     });
-
-    // Move when clicked
-    if (mouseConstraint.pivotB[0] < 1) {
-      mouseConstraint.pivotB[0] = 4.0;
-    }
-    if (mouseConstraint.pivotB[1] < 1) {
-      mouseConstraint.pivotB[1] = 4.0;
-    }
 
     world.addConstraint(mouseConstraint);
   }

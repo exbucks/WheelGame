@@ -142,7 +142,7 @@ function checkStartDrag(e) {
       collideConnected: false
     });
 
-    // add motion when click, not drag
+    // Move when clicked
     if (mouseConstraint.pivotB[0] < 1) {
       mouseConstraint.pivotB[0] = 4.0;
     }
@@ -386,7 +386,7 @@ Wheel.prototype = {
   }
 };
 /////////////////////////////
-// rim of fortune
+// wheel rim
 /////////////////////////////
 function Rim(x, y, radius, segments, pinRadius, pinDistance) {
   this.x = x;

@@ -340,7 +340,7 @@ Wheel.prototype = {
     ctx.drawImage(img, dx, dy, lw, lh);
     ctx.restore();
 
-    var tX, tY, deltaAngle, fontSize, deltaRadius;
+    var tX, tY, deltaAngle, fontSize, deltaRadius, radiusWeight;
     var basis = 60 * r / 593;
     for (var i = 0; i < this.segments; i++) {
       var labels = PIE_DATA[i].label
@@ -360,13 +360,18 @@ Wheel.prototype = {
         } else {
           deltaRadius = 0.76;
           if (labels.length > 3) {
-            fontSize = basis - 11 * index;
+            fontSize = basis - 10 * index;
           } else {
             fontSize = basis - 10 * index;
           }
         }
-        tX = (deltaRadius - 0.15 * index * (basis + 10 - 4 * index) / basis) * this.pRadius * Math.cos(i * this.deltaPI + deltaAngle * this.deltaPI / 4);
-        tY = (deltaRadius - 0.15 * index * (basis + 10 - 4 * index) / basis) * this.pRadius * Math.sin(i * this.deltaPI + deltaAngle * this.deltaPI / 4);
+        if (index < 3) {
+          radiusWeight = deltaRadius - 0.15 * index * (basis + 10 - 4 * index) / basis;
+        } else {
+          radiusWeight = deltaRadius - 0.15 * index * (basis + 10 - 4 * index) / basis + 0.01 * (index - 2);
+        }
+        tX = radiusWeight * this.pRadius * Math.cos(i * this.deltaPI + deltaAngle * this.deltaPI / 4);
+        tY = radiusWeight * this.pRadius * Math.sin(i * this.deltaPI + deltaAngle * this.deltaPI / 4);
         ctx.translate(tX, tY);
         ctx.rotate(HALF_PI - this.deltaPI / 2 + 0.2 + i * this.deltaPI);
         ctx.font = fontSize + "px Helvetica";

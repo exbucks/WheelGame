@@ -188,7 +188,7 @@ function initPhysics() {
     wheelX = physicsCenterX,
     wheelY = physicsCenterY,
     arrowX = wheelX,
-    arrowY = wheelY + wheelRadius + 0.625;
+    arrowY = wheelY + wheelRadius + 0.4;
 
   wheel = new Wheel(wheelX, wheelY, wheelRadius, PIE_DATA.length, 0.05, 0.98 * wheelRadius);
   wheel.body.angle = 0;

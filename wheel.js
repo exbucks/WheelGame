@@ -208,8 +208,9 @@ function update() {
   world.step(timeStep * 0.5);
   world.step(timeStep * 0.5);
 
-  if (wheelSpinning === false && wheelStopped === true && Math.abs(wheel.body.angularVelocity) < 0.05 &&
+  if (wheelSpinning === false && wheelStopped === true && Math.abs(wheel.body.angularVelocity) < 0.1 &&
     arrow.hasStopped() && WHEEL_STATUS === 'New') {
+    wheel.body.angularVelocity = 0;
     var win = wheel.gotLucky();
     win = win % PIE_DATA.length;
     WHEEL_STATUS = 'Prizes';

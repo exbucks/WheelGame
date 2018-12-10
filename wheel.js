@@ -136,7 +136,9 @@ function updateMouseBodyPosition(e) {
 
 function checkStartDrag(e) {
   if (world.hitTest(mouseBody.position, [wheel.body])[0]) {
-
+    if (Math.abs(wheel.body.angularVelocity) > 20) {
+      wheel.body.angularVelocity = -10 - 10 * Math.random();
+    }
     mouseConstraint = new p2.RevoluteConstraint(mouseBody, wheel.body, {
       worldPivot: mouseBody.position,
       collideConnected: false
@@ -154,8 +156,8 @@ function checkStartDrag(e) {
 function checkEndDrag(e) {
   if (mouseConstraint) {
     // Move when clicked
-    if (Math.abs(wheel.body.angularVelocity) < 1) {
-      wheel.body.angularVelocity = -10 - 20 * Math.random();
+    if (Math.abs(wheel.body.angularVelocity) < 1 || Math.abs(wheel.body.angularVelocity) > 20) {
+      wheel.body.angularVelocity = -10 - 10 * Math.random();
     }
     world.removeConstraint(mouseConstraint);
     mouseConstraint = null;
@@ -190,7 +192,7 @@ function initPhysics() {
     arrowX = wheelX,
     arrowY = wheelY + wheelRadius + 0.4;
 
-  wheel = new Wheel(wheelX, wheelY, wheelRadius, PIE_DATA.length, 0.05, 0.98 * wheelRadius);
+  wheel = new Wheel(wheelX, wheelY, wheelRadius, PIE_DATA.length, 0.20, 0.96 * wheelRadius);
   wheel.body.angle = 0;
   wheel.body.angularVelocity = 0;
   rim = new Rim(wheelX, wheelY, wheelRadius, PIE_DATA.length, wheelRadius / 50, 1.04 * wheelRadius);
@@ -606,6 +608,9 @@ function showPrizes(win) {
   for (var i = 0; i < 3; i++) {
     rightPrizes[i].style.filter = result.filter;
   }
+
+  var audio = new Audio('audio/win.ogg');
+  audio.play();
 
   setTimeout(function () {
     document.querySelector('#container').style.display = "flex";

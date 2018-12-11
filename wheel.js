@@ -72,15 +72,15 @@ window.onload = function () {
 
   requestAnimationFrame(loop);
 
-  setTimeout(function () {
-    world.on('impact', function (event) {
-      if (Math.abs(previousRotation - wheel.body.angle) > 0.1 * TWO_PI / PIE_DATA.length) {
-        var audio = new Audio('audio/click.ogg');
-        audio.play();
-        previousRotation = wheel.body.angle;
-      }
-    });
-  }, 2000);
+  // setTimeout(function () {
+  //   world.on('impact', function (event) {
+  //     if (Math.abs(previousRotation - wheel.body.angle) > 0.1 * TWO_PI / PIE_DATA.length) {
+  //       var audio = new Audio('audio/click.ogg');
+  //       audio.play();
+  //       previousRotation = wheel.body.angle;
+  //     }
+  //   });
+  // }, 2000);
 };
 
 document.querySelector("#controls .switch").onclick = function () {

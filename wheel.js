@@ -1,35 +1,3 @@
-window.onload = function () {
-  initGame();
-  initDrawingCanvas();
-  initPhysics();
-
-  requestAnimationFrame(loop);
-
-  setTimeout(function () {
-    world.on('impact', function (event) {
-      var audio = new Audio('audio/click.ogg');
-      audio.play();
-    });
-  }, 2000);
-};
-
-document.querySelector("#controls .switch").onclick = function () {
-  var classList = document.body.classList;
-  var bgImage = document.getElementById("bg");
-  var toggleImage = document.getElementById("toggle");
-  if (classList.contains("portrait")) {
-    classList.remove("portrait");
-    bgImage.src = "images/bg_horizontal.jpg";
-    toggleImage.src = "images/rotate_vertical.svg";
-  } else {
-    classList.add("portrait");
-    bgImage.src = "images/bg_vertical.jpg";
-    toggleImage.src = "images/rotate_horizontal.svg";
-  }
-}
-
-
-
 var TWO_PI = Math.PI * 2;
 var HALF_PI = Math.PI * 0.5;
 var WHEEL_STATUS = 'None'; // None, New, Prizes
@@ -95,6 +63,40 @@ var arrowMaterial,
 
 var wheelSpinning = false,
   wheelStopped = true;
+
+
+window.onload = function () {
+  initGame();
+  initDrawingCanvas();
+  initPhysics();
+
+  requestAnimationFrame(loop);
+
+  setTimeout(function () {
+    world.on('impact', function (event) {
+      if (Math.abs(previousRotation - wheel.body.angle) > 0.1 * TWO_PI / PIE_DATA.length) {
+        var audio = new Audio('audio/click.ogg');
+        audio.play();
+        previousRotation = wheel.body.angle;
+      }
+    });
+  }, 2000);
+};
+
+document.querySelector("#controls .switch").onclick = function () {
+  var classList = document.body.classList;
+  var bgImage = document.getElementById("bg");
+  var toggleImage = document.getElementById("toggle");
+  if (classList.contains("portrait")) {
+    classList.remove("portrait");
+    bgImage.src = "images/bg_horizontal.jpg";
+    toggleImage.src = "images/rotate_vertical.svg";
+  } else {
+    classList.add("portrait");
+    bgImage.src = "images/bg_vertical.jpg";
+    toggleImage.src = "images/rotate_horizontal.svg";
+  }
+}
 
 function initGame() {
   // var oReq = new XMLHttpRequest();
@@ -334,7 +336,7 @@ Wheel.prototype = {
     ctx.arc(0, 0, 0.2 * this.pRadius, 0, TWO_PI);
     ctx.fill();
 
-    ctx.fillStyle = 'transparent';
+    ctx.fillStyle = "transparent";
 
     this.pPinPositions.forEach(function (p) {
       ctx.beginPath();

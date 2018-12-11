@@ -4,6 +4,13 @@ window.onload = function () {
   initPhysics();
 
   requestAnimationFrame(loop);
+
+  setTimeout(function () {
+    world.on('impact', function (event) {
+      var audio = new Audio('audio/click.ogg');
+      audio.play();
+    });
+  }, 2000);
 };
 
 document.querySelector("#controls .switch").onclick = function () {
@@ -304,13 +311,6 @@ Wheel.prototype = {
     ctx.save();
     ctx.translate(this.pX, this.pY);
     ctx.rotate(-this.body.angle);
-
-    var delta = Math.abs(Math.abs(previousRotation) - Math.abs(this.body.angle))
-    if (delta < TWO_PI / PIE_DATA.length + 0.1 && delta > TWO_PI / PIE_DATA.length - 0.1) {
-      previousRotation = this.body.angle;
-      var audio = new Audio('audio/click.ogg');
-      audio.play();
-    }
 
     for (var i = 0; i < this.segments; i++) {
       var rimInGradient = ctx.createRadialGradient(0, 0, 0.98 * this.pRadius, 0, 0, 0.99 * this.pRadius, 0, 0, this.pRadius);
